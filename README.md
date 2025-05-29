@@ -14,26 +14,6 @@ use the Hera Runner easily.
 ## Running
 
 1. Copy an example Workflow from Hera into [workflow.py](hera_scratch/workflow.py)
-1. If using a Hera Runner example, copy the snippet below<sup>1</sup> into the top of the workflow.py file. Ensure no script
-   decorators have set their own `image`.
-1. Run `make run`. See output below<sup>2</sup>.
+1. If using a Hera Runner example, ensure no script decorators have set their own `image`.
+1. Run `make run`.
 1. See the Workflow at the link printed to the console.
-
-<br>
-
-1. Runner config snippet:
-
-```py
-from hera.workflows import Script
-from hera.shared import global_config
-
-global_config.set_class_defaults(Script, constructor="runner")
-global_config.image = "hera-scratch:v1"
-```
-
-2. `make run` output:
-```
-poetry run python -m hera_scratch
-Submitted hello-world-5grb2
-Open https://localhost:2746/workflows/argo/hello-world-5grb2
-```
