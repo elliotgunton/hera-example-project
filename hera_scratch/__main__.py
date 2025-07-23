@@ -4,14 +4,17 @@ from hera.workflows import models as m
 
 
 def run_workflow(w: Workflow):
+    host = "https://localhost:2746"
     w.namespace = "argo"
     w.workflows_service = WorkflowsService(
-        host="https://localhost:2746",
+        host=host,
         verify_ssl=False,
     )
     submitted_w = cast(m.Workflow, w.create())
-    print(f"Submitted {submitted_w.metadata.name}")
-    print(f"Open https://localhost:2746/workflows/argo/{submitted_w.metadata.name}")
+    name = submitted_w.metadata.name
+    namespace = submitted_w.metadata.namespace
+    print(f"Submitted {name}")
+    print(f"Open {host}/workflows/{namespace}/{name}")
 
 
 if __name__ == "__main__":
