@@ -1,13 +1,17 @@
-ARGO_WORKFLOWS_VERSION="v3.6.10"
+ARGO_WORKFLOWS_VERSION=v3.7.4
 
 .PHONY: build
 build:
 	poetry export --without-hashes --without-urls > requirements.txt
-	docker build . -t hera-scratch:v1
+	docker build . -t hera-scratch:v$(shell poetry version -s)
 
 .PHONY: run
 run:
 	poetry run python -m hera_scratch
+
+.PHONY: run-wt
+run-wt:
+	poetry run python -m hera_scratch.workflow_template
 
 .PHONY: format
 format: ## Format and sort imports for source, tests, examples, etc.
@@ -20,6 +24,6 @@ run-quick-start-argo:  ## Run Argo's quick start commands (run in docker desktop
 	@kubectl apply -n argo -f "https://github.com/argoproj/argo-workflows/releases/download/${ARGO_WORKFLOWS_VERSION}/quick-start-minimal.yaml"
 	@kubectl -n argo port-forward deployment/argo-server 2746:2746 &
 
-.PHONY: create-yaml  ## Convert Hera Workflow into YAML for GitOps (usually for WorkflowTemplates or CronWorkflows)
+.PHONY: create-yaml  ## Convert Hera WorkflowTemplate into YAML for GitOps
 create-yaml:
-	python -m hera_scratch.output_yaml > manifests/workflow.yaml
+	python -m hera_scratch.output_yaml > manifests/workflow_template.yaml

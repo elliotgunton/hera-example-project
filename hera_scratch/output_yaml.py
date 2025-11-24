@@ -5,6 +5,6 @@ if __name__ == "__main__":
     global_config.set_class_defaults(Script, constructor="runner")
     global_config.image = "hera-scratch:v1"
 
-    from hera_scratch.workflow import w
+    from hera_scratch.workflow_template import w
 
     print(w.to_yaml())
