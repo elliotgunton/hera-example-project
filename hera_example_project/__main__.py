@@ -3,8 +3,8 @@ from typing import cast
 from hera.workflows import Workflow, Script
 from hera.workflows import models as m
 
-from hera_scratch.util import HOST, get_workflows_service
-from hera_scratch.workflow_template import VERSION_STR
+from hera_example_project.util import HOST, get_workflows_service
+from hera_example_project.workflow_template import VERSION_STR
 
 
 def create_workflow(w: Workflow):
@@ -22,15 +22,15 @@ if __name__ == "__main__":
     from hera.shared import global_config
 
     global_config.set_class_defaults(Script, constructor="runner")
-    global_config.image = "hera-scratch:v1"
+    global_config.image = "hera-example-project:v1"
 
-    from hera_scratch.workflow import w
+    from hera_example_project.workflow import w
 
     create_workflow(w)
 
-    from hera_scratch.workflow_template import w
+    from hera_example_project.workflow_template import w
 
-    global_config.image = os.environ.get("IMAGE_NAME", f"hera-scratch:{VERSION_STR}")
+    global_config.image = os.environ.get("IMAGE_NAME", f"hera-example-project:{VERSION_STR}")
     w.namespace = "argo"
     w.workflows_service = get_workflows_service()
     submitted_w = cast(m.Workflow, w.create_as_workflow())

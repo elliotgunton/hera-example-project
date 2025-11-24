@@ -1,5 +1,5 @@
 [project]
-name = "hera-scratch"
+name = "hera-example-project"
 version = "0.1.0"
 description = ""
 authors = [

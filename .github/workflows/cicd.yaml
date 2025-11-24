@@ -48,4 +48,4 @@ jobs:
         run: poetry install
 
       - name: Run Workflow e2e
-        run: IMAGE_NAME=hera-scratch:vPR-${{ github.event.number }} make run-wt
+        run: IMAGE_NAME=hera-example-project:vPR-${{ github.event.number }} make run-wt

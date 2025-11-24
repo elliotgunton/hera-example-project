@@ -10,17 +10,16 @@ spec:
       parameters:
       - name: s
     script:
-      image: hera-scratch:v0.1.0
+      image: hera-example-project:v0.1.0
       source: '{{inputs.parameters}}'
       args:
       - -m
       - hera.workflows.runner
       - -e
-      - hera_scratch.workflow_template:hello
+      - hera_example_project.workflow_template:hello
       command:
       - python
   arguments:
     parameters:
     - name: s
       value: world
-
