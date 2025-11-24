@@ -3,7 +3,11 @@ ARGO_WORKFLOWS_VERSION=v3.7.4
 .PHONY: build
 build:
 	poetry export --without-hashes --without-urls > requirements.txt
-	docker build . -t hera-example-project:v$(shell poetry version -s)
+	docker build . -t elliotgunton/hera-example-project:v$(shell poetry version -s)
+
+.PHONY: push
+push:
+	docker push elliotgunton/hera-example-project:v$(shell poetry version -s)
 
 .PHONY: run
 run:

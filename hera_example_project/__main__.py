@@ -22,7 +22,7 @@ if __name__ == "__main__":
     from hera.shared import global_config
 
     global_config.set_class_defaults(Script, constructor="runner")
-    global_config.image = "hera-example-project:v1"
+    global_config.image = "elliotgunton/hera-example-project:v1"
 
     from hera_example_project.workflow import w
 
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     from hera_example_project.workflow_template import w
 
-    global_config.image = os.environ.get("IMAGE_NAME", f"hera-example-project:{VERSION_STR}")
+    global_config.image = os.environ.get("IMAGE_NAME", f"elliotgunton/hera-example-project:{VERSION_STR}")
     w.namespace = "argo"
     w.workflows_service = get_workflows_service()
     submitted_w = cast(m.Workflow, w.create_as_workflow())

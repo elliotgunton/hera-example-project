@@ -10,7 +10,7 @@ spec:
       parameters:
       - name: s
     script:
-      image: hera-example-project:v0.1.0
+      image: elliotgunton/hera-example-project:v1
       source: '{{inputs.parameters}}'
       args:
       - -m
