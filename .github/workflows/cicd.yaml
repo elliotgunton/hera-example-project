@@ -29,18 +29,15 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: elliotgunton/hera-example-project:pr-${{ github.event.number }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:pr-${{ github.event.number }}
 
       - name: checkout
         uses: actions/checkout@v5
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.13
         uses: actions/setup-python@v6
         with:
-          python-version: "3.10"
-
-      - name: Run Argo Workflows
-        run: make run-quick-start-argo
+          python-version: "3.13"
 
       - name: Install base dependencies
         run: |
@@ -50,5 +47,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: set up cluster
+        run: make install-k3d set-up-cluster set-up-argo
+
       - name: Run Workflow e2e
-        run: IMAGE_NAME=elliotgunton/hera-example-project:pr-${{ github.event.number }} make run-wt
+        run: IMAGE_NAME=${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:pr-${{ github.event.number }} make run-wt
