@@ -53,4 +53,4 @@ run-quick-start-argo:  ## Run Argo's quick start commands (run in docker desktop
 
 .PHONY: create-yaml  ## Convert Hera WorkflowTemplate into YAML for GitOps
 create-yaml:
-	python -m hera_example_project.output_yaml > manifests/workflow_template.yaml
+	poetry run python -m hera_example_project.output_yaml > manifests/workflow_template.yaml

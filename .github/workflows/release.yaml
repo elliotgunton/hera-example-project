@@ -1,15 +1,13 @@
-name: CICD
-
+---
+name: Release Workflow Template Version
+# Publish once a maintainer clicks publish on a draft release
+# and approves the GitHub actions job
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  release:
+    types: [released]
 jobs:
-  build-and-run:
-    name: build and run workflow-template
+  release:
+    name: build and release workflow-template
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -29,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:pr-${{ github.event.number }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:${{ github.event.release.tag_name }}
 
       - name: checkout
         uses: actions/checkout@v5
@@ -45,15 +43,15 @@ jobs:
           python -m pip install poetry
 
       - name: Install dependencies
-        run: poetry install
-
-      - name: check-codegen
         run: |
-          make create-yaml
-          git diff
+          poetry install
+          poetry version ${{ github.event.release.tag_name }}
+
+      - name: create-yaml
+        run: make create-yaml
 
       - name: set up cluster
         run: make install-k3d set-up-cluster set-up-argo
 
       - name: Run Workflow e2e
-        run: IMAGE_NAME=${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:pr-${{ github.event.number }} make run-wt
+        run: IMAGE_NAME=${{ vars.DOCKERHUB_USERNAME }}/hera-example-project:${{ github.event.release.tag_name }} make run-wt
