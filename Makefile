@@ -17,7 +17,7 @@ run:
 .PHONY: run-wt
 run-wt:
 	@(kubectl -n argo port-forward deployment/argo-server 2746:2746 &)
-	poetry run python -m hera_example_project
+	WT=1 poetry run python -m hera_example_project
 
 .PHONY: format
 format: ## Format and sort imports for source, tests, examples, etc.
