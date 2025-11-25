@@ -13,7 +13,7 @@ use the Hera Runner easily.
 
 ## Running
 
-1. Copy an example Workflow from Hera into [workflow.py](hera_scratch/workflow.py)
+1. Copy an example Workflow from Hera into [workflow.py](hera_example_project/workflow.py)
 1. If using a Hera Runner example, ensure no script decorators have set their own `image`.
 1. Run `make run`.
 1. See the Workflow at the link printed to the console.

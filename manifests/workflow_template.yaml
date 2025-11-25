@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  generateName: hello-world-
+  name: hello-world-v0.1.0
 spec:
   entrypoint: hello
   templates:
@@ -10,13 +10,13 @@ spec:
       parameters:
       - name: s
     script:
-      image: hera-scratch:v1
+      image: elliotgunton/hera-example-project:v1
       source: '{{inputs.parameters}}'
       args:
       - -m
       - hera.workflows.runner
       - -e
-      - hera_scratch.workflow:hello
+      - hera_example_project.workflow_template:hello
       command:
       - python
   arguments:
