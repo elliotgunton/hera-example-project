@@ -19,12 +19,14 @@ def create_workflow(w: Workflow):
 
 
 if __name__ == "__main__":
+    from hera.shared import global_config
+    global_config.experimental_features["script_pydantic_io"] = True
+    global_config.set_class_defaults(Script, constructor="runner")
+    global_config.image = os.environ.get(
+        "IMAGE_NAME", f"elliotgunton/hera-example-project:{VERSION_STR}"
+    )
+
     if not os.environ.get("WT"):
-        from hera.shared import global_config
-
-        global_config.set_class_defaults(Script, constructor="runner")
-        global_config.image = os.environ.get("IMAGE_NAME", f"elliotgunton/hera-example-project:{VERSION_STR}")
-
         from hera_example_project.workflow import w
 
         create_workflow(w)

@@ -7,4 +7,4 @@ if __name__ == "__main__":
 
     from hera_example_project.workflow_template import w
 
-    print(w.to_yaml())
+    print(w.to_yaml(), end="")
