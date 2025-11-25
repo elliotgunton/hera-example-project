@@ -1,12 +1,9 @@
-from importlib.metadata import version
 
 from hera.workflows import WorkflowTemplate, script
 
-# The workflow template and the container versions are the same to stay fully in sync
-VERSION_STR = f"v{version('hera-example-project')}"
+from hera_example_project.util import VERSION_STR
 
-
-@script(constructor="runner")
+@script()
 def hello(s: str):
     print(f"Hello, {s}!")
 

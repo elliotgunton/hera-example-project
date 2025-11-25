@@ -3,8 +3,7 @@ from typing import cast
 from hera.workflows import Workflow, Script
 from hera.workflows import models as m
 
-from hera_example_project.util import HOST, get_workflows_service
-from hera_example_project.workflow_template import VERSION_STR
+from hera_example_project.util import HOST, VERSION_STR, get_workflows_service
 
 
 def create_workflow(w: Workflow):
