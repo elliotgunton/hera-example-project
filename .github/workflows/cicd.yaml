@@ -50,7 +50,7 @@ jobs:
       - name: check-codegen
         run: |
           make create-yaml
-          git diff
+          git diff --exit-code || (echo "Code is not up-to-date. Please run 'make codegen'" && exit 1)
 
       - name: set up cluster
         run: make install-k3d set-up-cluster set-up-argo
